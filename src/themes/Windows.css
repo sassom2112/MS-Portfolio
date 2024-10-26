@@ -1,0 +1,18 @@
+Windows-style theme for Home and CTF
+body.windows-theme {
+  background-color: #0078d4; /* Windows blue */
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Windows-style font */
+}
+
+button {
+  background-color: #00a4ef; /* Windows-style button color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: #0078d4; /* Hover effect for Windows theme */
+}
