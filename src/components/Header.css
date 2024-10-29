@@ -1,4 +1,4 @@
-/* Button styles */
+/* src/components/Header.css */
 .button {
   position: relative;
   display: flex;
@@ -7,56 +7,51 @@
   padding: 10px 20px;
   margin: 0 5px;
   background-color: transparent;
-  color: white;
+  color: var(--header-fg);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border: 2px solid white;
+  border: 2px solid var(--header-fg);
   border-radius: 50px;
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s ease;
-  z-index: 1; /* Ensure the button text stays on top */
+  z-index: 1;
 }
 
-/* Hover effect with a sliding background */
 .button:before {
   content: '';
   position: absolute;
   top: 0;
   left: 50%;
-  width: 100%;  /* Ensure the pseudo-element covers the entire button */
+  width: 100%;
   height: 100%;
-  background-color: white;
-  transform: translateX(-50%) scaleX(0);  /* Hidden by default */
-  transition: transform 0.4s ease;       /* Smooth transition */
-  z-index: 0;                            /* Ensure it's behind the text */
+  background-color: var(--header-fg);
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.4s ease;
+  z-index: 0;
 }
 
-/* Expand the pseudo-element background on hover */
 .button:hover:before {
-  transform: translateX(-50%) scaleX(1);  /* Expands the background on hover */
+  transform: translateX(-50%) scaleX(1);
 }
 
-/* Hover state for the text */
 .button:hover {
-  color: black;  /* Change text to black */
-  z-index: 2;    /* Keep the text on top of the background */
+  color: var(--color-text);
+  z-index: 2;
 }
 
-/* Button text inside spans */
 .button span {
   position: relative;
-  z-index: 2;  /* Keep text above the background */
+  z-index: 2;
   transition: color 0.3s ease;
 }
 
-/* Make the clicked state static */
 .button:active {
-  background-color: #0078d4;  /* Keep the color after click */
-  border-color: #0078d4;
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
 }
 
 .button:active span {
-  color: white;  /* Text stays white on click */
+  color: var(--header-fg);
 }

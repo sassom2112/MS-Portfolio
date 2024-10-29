@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import '../themes/Windows.css';  // Windows style
 
 function About() {
   useEffect(() => {

@@ -12,8 +12,8 @@ function Header() {
         <Link to="/" className="button">
           Home
         </Link>
-        <Link to="/ctf-portfolio" className="button">
-          CTF Portfolio
+        <Link to="/CybersecurityPortfolio" className="button">
+        CS Portfolio
         </Link>
         <Link to="/about" className="button">
           About
