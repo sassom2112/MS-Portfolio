@@ -1,133 +1,112 @@
-/* src/pages/CybersecurityPortfolio.css */
-
-/* General Portfolio Layout */
+/* General Styles */
 .cybersecurity-portfolio {
   padding: 40px;
+  max-width: 900px;
+  margin: auto;
   background-color: var(--color-page-bg);
   color: var(--color-text);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
 }
 
 /* Portfolio Header */
+.portfolio-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
 .portfolio-header h1 {
   font-size: 2.5rem;
-  color: var(--color-heading);
-  text-align: center;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--color-link);
+  color: #0044cc;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .portfolio-header p {
-  color: var(--color-heading-light);
   font-size: 1.2rem;
-  text-align: center;
+  color: #333;
+  line-height: 1.6;
 }
 
-/* Category Card Grid */
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 0 40px;
+/* Category Styles */
+.toggle {
+  display: none;
 }
 
-.category-card {
-  background-color: var(--color-table-odd-bg);
-  border: 1px solid var(--color-table-border);
+.category-header {
+  display: block;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background: #4a90e2;
+  color: #ffffff;
   border-radius: 8px;
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.category-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+.category-header:hover {
+  background: #357abd;
+  transform: scale(1.02);
 }
 
-.category-card h2 {
-  font-size: 2rem;
-  color: var(--header-fg);
+.category-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  padding: 0 20px;
+  background: #f9f9f9;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.category-card p {
+.toggle:checked + .category-header + .category-content {
+  max-height: 800px;
+  padding: 15px 20px;
+}
+
+.category-description {
+  margin: 10px 0;
   font-size: 1rem;
-  color: var(--color-text);
+  color: #666;
 }
 
-/* Challenge Card Grid */
-.challenge-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 0 40px;
+/* Challenge Item Styles */
+.challenge-list {
+  list-style: none;
+  padding: 0;
 }
 
-.challenge-card {
-  background-color: var(--color-table-odd-bg);
-  border: 1px solid var(--color-table-border);
+.challenge-item {
+  margin-top: 10px;
+}
+
+.challenge-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #e0f3ff;
+  color: #005f99;
+  border: 1px solid #b8e1ff;
   border-radius: 8px;
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.challenge-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+.challenge-button:hover {
+  background-color: #b8e1ff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.challenge-card h3 {
-  font-size: 1.8rem;
-  color: var(--header-fg);
-}
-
-.challenge-card p {
-  font-size: 1rem;
-  color: var(--color-text);
-}
-
-/* Interactive Hover Overlay */
-.category-card::before,
-.challenge-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, var(--color-tint));
-  transform: rotate(30deg);
-  transition: transform 0.5s ease;
-}
-
-.category-card:hover::before,
-.challenge-card:hover::before {
-  transform: rotate(40deg);
-}
-
-.category-card *,
-.challenge-card * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Modal Styles */
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -136,26 +115,68 @@
 
 .modal-content {
   background: var(--color-page-bg);
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 80%;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
-  position: relative;
   color: var(--color-text);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.modal-content-inner {
-  padding: 10px;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-size: 1.8rem;
+  color: #0044cc;
 }
 
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   font-size: 24px;
   background: none;
   border: none;
+  color: #666;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #0044cc;
+}
+
+.modal-body {
+  font-size: 1rem;
   color: var(--color-text);
+}
+
+.techniques, .mitre-ttps {
+  margin-top: 20px;
+}
+
+.techniques h3, .mitre-ttps h3 {
+  font-size: 1.1rem;
+  color: #0044cc;
+  margin-bottom: 10px;
+}
+
+.techniques p, .mitre-ttps ul {
+  margin-left: 20px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .portfolio-header h1 {
+    font-size: 2rem;
+  }
+
+  .portfolio-header p {
+    font-size: 1rem;
+  }
 }

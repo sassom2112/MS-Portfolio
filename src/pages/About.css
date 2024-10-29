@@ -1,0 +1,101 @@
+/* General Page Styling */
+.about-page {
+  padding: 40px;
+  max-width: 800px;
+  margin: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title Styling */
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-align: center;
+  background: linear-gradient(90deg, #4a90e2, #357abd);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+/* About Me Card */
+.about-me-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  margin-bottom: 40px;
+  background: radial-gradient(circle, #0044cc, #001a66);
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glowing Border Animation */
+.about-me-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+  animation: glow-animation 3s infinite alternate ease-in-out;
+  transform: rotate(45deg);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+@keyframes glow-animation {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* Profile Picture Styling */
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.profile-picture:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Name and Details */
+.about-me-details .name {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #ffeb3b;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.about-me-details p {
+  margin: 5px 0;
+  color: #e0f7fa;
+  font-size: 1.1rem;
+}
+
+/* Subtle Hover Effect on Card */
+.about-me-card:hover {
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}

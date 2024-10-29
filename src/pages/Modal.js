@@ -1,6 +1,5 @@
-// src/pages/Modal.js
 import React from 'react';
-import './Modal.css';
+import '../App.css'; // Assuming you intended to import a CSS file for styling
 
 function Modal({ show, onClose, children }) {
   if (!show) return null;

@@ -1,89 +1,29 @@
-/* src/index.css */
 :root {
   --header-height: 50px;
   --header-bg: rgba(34, 37, 41, 0.9);
-  --header-fg: #fff;
+  --header-fg: #000;
   --color-page-bg: #fff;
-  --color-text: #222;
-  --color-tint: rgba(125, 88, 168, 0.1);
-  --color-heading: #000;
-  --color-heading-light: #666;
-  --color-brand: #7d5aa8;
-  --color-link: #7d5aa8;
-  --color-link-light: #9273b8;
-  --color-accent: #7d5aa8; /* Added this line */
-  --color-accent-dark: #6c4e98; /* Optional darker shade for hover effects */
-  --color-hr: #f8f8f8;
-  --color-quote-bg: #ebf6ff;
-  --color-quote-border: #5aa8ff;
-  --color-quote-text: #444;
+  --color-text: #333;
+  --color-tint: rgba(200, 200, 200, 0.1);
+  --color-heading: #222;
+  --color-heading-light: #555;
+  --color-brand: #0073e6; /* Updated to a professional blue */
+  --color-link: #0073e6;
+  --color-link-light: #5a9fe6;
+  --color-accent: #0073e6; /* Clean blue for accents */
+  --color-accent-dark: #005bb5; /* Optional darker shade for hover effects */
+  --color-hr: #e0e0e0;
+  --color-quote-bg: #f5f8fa;
+  --color-quote-border: #c8e1ff;
+  --color-quote-text: #333;
   --color-warn-bg: #ffee5b;
-  --color-table-border: #ccc;
-  --color-table-even-bg: #fff;
-  --color-table-odd-bg: #f8f8f8;
-  --color-code-inline-bg: #f8f8f8;
-  --color-code-inline-border: #eaeaea;
-  --color-code-bg: #f7fafe;
-  --color-next-link: #aaa;
-  --color-footer-bg: #f2f2f2;
-  --code-block-filter: hue-rotate(180deg) invert(1) saturate(2) brightness(0.9) contrast(.9);
-}
-
-@media (prefers-color-scheme: dark) {
-  html:not([mode=light]) {
-    --header-bg: rgba(23, 29, 36, 0.9);
-    --header-fg: #ddd;
-    --color-page-bg: #222427;
-    --color-text: #ddd;
-    --color-tint: rgba(125, 88, 168, 0.1);
-    --color-heading: #fff;
-    --color-heading-light: #a3a3a3;
-    --color-link: #9273b8;
-    --color-link-light: #a687c7;
-    --color-accent: #9273b8; /* Added this line */
-    --color-accent-dark: #8063a5; /* Optional darker shade for hover effects */
-    --color-hr: #444;
-    --color-quote-bg: #29475f;
-    --color-quote-border: #3f6b9c;
-    --color-quote-text: #c5c5c5;
-    --color-warn-bg: #f2d900;
-    --color-table-border: #575757;
-    --color-table-even-bg: #242424;
-    --color-table-odd-bg: #2f2f2f;
-    --color-code-inline-bg: #2b313c;
-    --color-code-inline-border: #5e5e5e;
-    --color-code-bg: #252931;
-    --color-next-link: #666;
-    --color-footer-bg: #1b1b1b;
-    --code-block-filter: none;
-  }
-}
-
-html[mode=dark] {
-  --header-bg: rgba(23, 29, 36, 0.9);
-  --header-fg: #ddd;
-  --color-page-bg: #222427;
-  --color-text: #ddd;
-  --color-tint: rgba(125, 88, 168, 0.1);
-  --color-heading: #fff;
-  --color-heading-light: #cde;
-  --color-brand: #9273b8;
-  --color-link: #9273b8;
-  --color-link-light: #a687c7;
-  --color-accent: #9273b8; /* Added this line */
-  --color-accent-dark: #8063a5; /* Optional darker shade for hover effects */
-  --color-hr: #444;
-  --color-quote-bg: #29475f;
-  --color-quote-border: #3f6b9c;
-  --color-quote-text: #c5c5c5;
-  --color-warn-bg: #f2d900;
-  --color-table-border: #363c42;
-  --color-table-even-bg: #1e2125;
-  --color-table-odd-bg: #24272b;
-  --color-code-inline-bg: #2b313c;
-  --color-code-inline-border: #3f4757;
-  --color-code-bg: #252931;
+  --color-table-border: #ddd;
+  --color-table-even-bg: #fafafa;
+  --color-table-odd-bg: #f5f5f5;
+  --color-code-inline-bg: #f5f5f5;
+  --color-code-inline-border: #e0e0e0;
+  --color-code-bg: #f3f6f9;
   --color-next-link: #666;
-  --color-footer-bg: #1b1b1b;
-  --code-block-filter: contrast(1.2);
+  --color-footer-bg: #f4f4f4;
+  --code-block-filter: contrast(1);
 }
