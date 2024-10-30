@@ -422,3 +422,72 @@ p {
     font-size: 1rem;
   }
 }
+/* Header Container */
+.App-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(90deg, #0044cc, #001a66);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  color: #ffffff;
+}
+
+/* Title Styling */
+.header-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffeb3b; /* Gold color to match the "About Me" section */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+/* Header Middle Section */
+.header-middle {
+  display: flex;
+  gap: 20px;
+}
+
+/* Button Links */
+.button {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(90deg, #4a90e2, #357abd);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Glowing Border Animation for Header */
+.App-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+  animation: glow-animation 3s infinite alternate ease-in-out;
+  transform: rotate(45deg);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+@keyframes glow-animation {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}

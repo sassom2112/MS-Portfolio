@@ -1,92 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './CommonStyles.css';
-
-const TypingCode = ({ text }) => {
-  const [displayText, setDisplayText] = useState('');
-
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setDisplayText((prev) => prev + text[index]);
-      index++;
-      if (index >= text.length) clearInterval(interval);
-    }, 50); // Adjust typing speed if necessary
-    return () => clearInterval(interval);
-  }, [text]);
-
-  return <code>{displayText}</code>;
-};
 
 const WiresharkAnalysisReport = () => {
   return (
-    <div className="Report-content">
-      <div className="ctf-header"></div>
-      <h1>PTES Framework Report Snippets for Wireshark Analysis</h1>
-      <section>
-        <h2>Executive Summary - Wireshark Analysis</h2>
-        <h3>Objective:</h3>
-        <p>
-          Analyze network traffic to identify potential security issues, including unauthorized data transfers,
-          anomalous connections, and signs of possible data exfiltration or policy violations.
-        </p>
-        <h3>Scope:</h3>
-        <p>
-          Traffic analysis was conducted on captured packets within the target network, with a focus on DNS and
-          POP traffic associated with IPs and domains outside the trusted network boundaries.
-        </p>
+    <div className="report-content">
+      {/* Report Header */}
+      <div className="report-header">
+        <h1>Wireshark Network Traffic Analysis Report</h1>
+        <p><strong>Prepared for:</strong> Network Security Team</p>
+        <p><strong>Date:</strong> October 25, 2024</p>
+        <p><strong>Author:</strong> Michael Sasso</p>
+      </div>
 
-        <h3>Key Findings:</h3>
-        <ul>
-          <li>
-            <strong>Unusual DNS Query:</strong> DNS request and response for <em>mail.patriots.in</em>, followed by
-            POP traffic from an external IP, suggests potential data exfiltration attempts.
-          </li>
-          <li>
-            <strong>High Delta Time in POP Traffic:</strong> The extended delay in the response from the external
-            mail server raises concerns about low-and-slow data exfiltration methods.
-          </li>
-        </ul>
+      {/* Executive Summary */}
+      <section>
+        <h2>1. Executive Summary</h2>
+        <p>
+          This report provides a comprehensive analysis of network traffic captured within the target environment, focusing on DNS and POP traffic patterns. The analysis aligns with the PTES Intelligence Gathering and Discovery phase, aiming to identify unauthorized data access, anomalous connections, and potential data exfiltration or policy violations.
+        </p>
       </section>
 
+      {/* Scope and Methodology */}
       <section>
-        <h2>Methodology - Wireshark Analysis</h2>
-        <h3>Reconnaissance Phase:</h3>
+        <h2>2. Scope and Methodology</h2>
+        <h3>Scope</h3>
         <p>
-          Wireshark was used to capture network traffic and apply targeted filters to identify anomalies in DNS
-          and POP protocol usage.
+          Network traffic analysis was conducted on captured packets, emphasizing specific traffic patterns that may indicate unauthorized activity. Key areas of focus included:
         </p>
-
-        <h3>Analysis Approach:</h3>
-        <p>Applied Wireshark filters to narrow down suspicious traffic:</p>
         <ul>
-          <li>IP Filter: <TypingCode text="ip.addr == 10.0.2.15" /></li>
-          <li>Content Filter: <TypingCode text='frame contains "mail"' /></li>
+          <li><strong>DNS queries</strong> for external or suspicious domains</li>
+          <li><strong>POP traffic</strong> from external IPs outside trusted network boundaries</li>
         </ul>
-        <p>Manually reviewed captured packets for any unusual time gaps or external connections.</p>
+
+        <h3>Methodology</h3>
+        <p>
+          This analysis follows PTES standards in network traffic reconnaissance and data analysis using Wireshark as the primary tool. Specific filters were applied to isolate DNS and POP protocol traffic, allowing for more targeted examination of anomalies in external communication patterns. Key steps included:
+        </p>
+        <ul>
+          <li><strong>IP Filtering:</strong> <code>ip.addr == 10.0.2.15</code></li>
+          <li><strong>Keyword Filtering:</strong> <code>frame contains "mail"</code></li>
+        </ul>
+        <p>These filters facilitated the identification of suspicious activities and enabled further drill-down into network behavior, contributing to a detailed and actionable report on the security posture of the network environment.</p>
       </section>
 
+      {/* Findings and Analysis */}
       <section>
-        <h2>Findings and Analysis</h2>
+        <h2>3. Findings and Analysis (PTES: Vulnerability Analysis)</h2>
 
-        <h3>Finding #1: External DNS Query for mail.patriots.in</h3>
+        {/* Finding #1 */}
+        <h3>Finding #1: Unusual DNS Query for External Domain (mail.patriots.in)</h3>
         <h4>Description:</h4>
         <p>
-          A DNS query from <TypingCode text="10.10.1.4" /> to <TypingCode text="10.10.1.1" /> requested an A record for
-          <em>mail.patriots.in</em>. The DNS response indicated a CNAME record, suggesting redirection or aliasing,
-          which could mask the true destination.
+          The analysis uncovered a DNS query from <code>10.10.1.4</code> to <code>10.10.1.1</code> for the external domain <em>mail.patriots.in</em>. This query is unusual, given that the queried domain is outside of the network’s typical whitelist, suggesting potential unauthorized data access or data exfiltration attempts.
         </p>
 
         <h4>Evidence:</h4>
         <ul>
-          <li>Packet Capture:</li>
-          <ul>
-            <li>Source: <TypingCode text="10.10.1.4" /></li>
-            <li>Destination: <TypingCode text="10.10.1.1" /></li>
-            <li>Protocol: DNS</li>
-            <li>Details: Standard query <TypingCode text="0x7956" /> A <em>mail.patriots.in</em></li>
-          </ul>
+          <li><strong>Source IP:</strong> 10.10.1.4</li>
+          <li><strong>Destination IP:</strong> 10.10.1.1</li>
+          <li><strong>Protocol:</strong> DNS</li>
+          <li><strong>Details:</strong> Standard query for an A record of <em>mail.patriots.in</em> with a CNAME redirection response, potentially indicating aliasing to mask destination.</li>
         </ul>
-        
+
+        <h4>Impact and Recommendations:</h4>
+        <p>
+          This unusual DNS query for an external domain could indicate an attempt at data exfiltration. Based on PTES remediation principles, the following mitigation measures are recommended:
+        </p>
+        <ul>
+          <li><strong>Restrict external DNS queries:</strong> Implement filtering to prevent outbound DNS requests for non-whitelisted domains in sensitive network segments.</li>
+          <li><strong>Enhanced monitoring:</strong> Increase logging and analysis of outbound queries to detect uncommon external domains and take corrective actions promptly.</li>
+          <li><strong>Implement network segmentation:</strong> Partition sensitive areas of the network to minimize unauthorized data access and allow for focused monitoring of critical segments.</li>
+        </ul>
+      </section>
+
+      {/* Conclusion */}
+      <section>
+        <h2>4. Conclusion</h2>
+        <p>
+          The Wireshark analysis identified potential unauthorized data access points and anomalies in DNS and POP traffic patterns that suggest a risk of data leakage. This aligns with PTES best practices for reporting, with a focus on actionable insights. It is advised to implement DNS query restrictions and enhanced monitoring as recommended, to reduce the likelihood of unauthorized access and data exfiltration.
+        </p>
       </section>
     </div>
   );

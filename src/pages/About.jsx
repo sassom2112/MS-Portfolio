@@ -61,10 +61,31 @@ function About() {
             </div>
           </div>
         </section>
+        <section className="personal-message">
+          <h2>A Personal Note</h2>
+          <p>
+            This portfolio represents just a fraction of my learning journey. Beyond the lines of code and projects here, I'm also a small business owner, a scuba instructor, a dedicated husband, and a friend to some wonderful felines. Over the past three years, I’ve not only deepened my understanding of technology but have truly learned how to learn, diving into new tech stacks with enthusiasm and resilience. 
+          </p>
+          <p>
+            When I’m not in my lab, you can likely find me at a shady beach, enjoying a good book or challenging myself on a mountain bike trail. I’m a fan of paddleboarding and can’t resist the thrill of dangerously spicy foods 🌶️. This journey of discovery, learning, and community brings me great joy—and I look forward to what lies ahead. 
+          </p>
+        </section>
+
+        {/* Contact Information Section */}
+        <section className="contact-info">
+          <h2>Contact Information</h2>
+          <ul>
+            <li>🔗 <a href="https://linkedin.com/in/michael-sasso-0x00/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li>🐙 <a href="https://github.com/sassom2112" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li>✉️ <a href="mailto:Michael.sasso111@gmail.com">Michael.sasso111@gmail.com</a></li>
+            <li>📞 (440) 554-7378</li>
+            <li>📍 Kihei, HI 96753</li>
+          </ul>
+        </section>
 
         {/* Coursework Section */}
         <section className="coursework">
-          <h2>Relevant Coursework</h2>
+          <h2>Purdue Global Coursework</h2>
           {Object.keys(coursework).map((category, index) => (
             <div key={index} className="course-category">
               <input type="checkbox" id={`category-${index}`} className="toggle" />

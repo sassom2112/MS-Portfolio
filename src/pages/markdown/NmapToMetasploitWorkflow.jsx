@@ -6,76 +6,78 @@ const NmapToMetasploitWorkflow = () => {
     <div className="nmap-metasploit-workflow">
       <div className="ctf-header">
         <h1>Nmap to Metasploit Workflow</h1>
-        <p>A step-by-step guide on integrating Nmap scans with Metasploit for efficient reconnaissance and exploitation.</p>
+        <p>This project is from the <strong>Metsploit</strong> book that integrats Nmap scans with Metasploit for efficient reconnaissance and exploitation.</p>
       </div>
 
       <div className="content-section">
         <h3>Step 1: Scan the Target Network with Nmap</h3>
-        <p>Run an Nmap scan on the <code>metasploitable2</code> host for comprehensive reconnaissance:</p>
+        <p>To start, run an Nmap scan on the metasploitable2 IP to gather essential information about available services and potential vulnerabilities:</p>
         
         <h4>Command Explanation:</h4>
-        <pre><code>nmap -Pn -sS -A -oX Subnet1 metasploitable2</code></pre>
+        <p>nmap -Pn -sS -A -oX Subnet1 metasploitable2</p>
         <ul>
-          <li><code>-Pn</code>: Disables host discovery, assuming the host is online.</li>
-          <li><code>-sS</code>: Performs a TCP SYN scan, a stealthy scanning technique.</li>
-          <li><code>-A</code>: Enables OS detection, version detection, script scanning, and traceroute.</li>
-          <li><code>-oX Subnet1</code>: Outputs the scan results in XML format with the filename <code>Subnet1</code>.</li>
-          <li><code>metasploitable2</code>: The target hostname (ensure it’s configured in your <code>/etc/hosts</code> file).</li>
+          <li>-Pn: Disables host discovery, assuming the host is online.</li>
+          <li>-sS: Performs a TCP SYN scan, a stealthy scanning technique that minimizes detection.</li>
+          <li>-A: Enables OS detection, version detection, script scanning, and traceroute for detailed information.</li>
+          <li>-oX Subnet1: Outputs the scan results in XML format with the filename Subnet1, useful for import into Metasploit.</li>
+          <li>metasploitable2: Specifies the target host (make sure it’s configured in your <strong>/etc/hosts</strong> file).</li>
         </ul>
 
-        <h4>Run the Nmap Command:</h4>
-        <pre><code>nmap -Pn -sS -A -oX Subnet1 metasploitable2</code></pre>
-        <p>Wait for the scan to complete. The XML output file <code>Subnet1.xml</code> will be generated.</p>
+        <h4>Execute the Nmap Command:</h4>
+        <p>Run the following command to perform the scan:</p>
+        <p>nmap -Pn -sS -A -oX Subnet1 metasploitable2</p>
+        <p>Upon completion, an XML output file <strong>Subnet1.xml</strong> is generated, containing comprehensive scan results for import into Metasploit.</p>
       </div>
 
       <div className="content-section">
         <h3>Step 2: Open Metasploit Console and Connect to the Database</h3>
         
         <h4>Launch Metasploit:</h4>
-        <pre><code>msfconsole</code></pre>
+        <p>Open the Metasploit console by entering:</p>
+        <p>msfconsole</p>
         
-        <h4>Connect to the Database:</h4>
-        <p>If the database isn’t configured, use the following command:</p>
-        <pre><code>msf> db_connect msf:msf@127.0.0.1/msf</code></pre>
-        <p>Then, check the database status:</p>
-        <pre><code>msf> db_status</code></pre>
-        <p>It should display "Connected to msf. Connection type: postgresql."</p>
+        <h4>Database Connection Setup:</h4>
+        <p>To use Metasploit’s database functionalities, establish a connection to the PostgreSQL database. If it isn’t already connected, use:</p>
+        <p>msf$ db_connect msf:msf@127.0.0.1/msf</p>
+        <p>Verify the database connection status:</p>
+        <p>msf$ db_status</p>
+        <p>The output should confirm, "Connected to msf. Connection type: postgresql," indicating a successful database connection.</p>
       </div>
 
       <div className="content-section">
-        <h3>Step 3: Import the Nmap Scan Results into Metasploit</h3>
+        <h3>Import the Nmap Scan Results into Metasploit</h3>
         
-        <h4>Import the XML File:</h4>
-        <p>Load the scan results from the <code>Subnet1.xml</code> file into Metasploit’s database:</p>
-        <pre><code>msf> db_import Subnet1.xml</code></pre>
-        <p>Metasploit will import the results, making them available for analysis and further actions.</p>
+        <h4>Importing XML Scan Results:</h4>
+        <p>With Metasploit connected to the database, import the Nmap scan results for analysis. Run:</p>
+        <p>msf$ db_import Subnet1.xml</p>
+        <p>Metasploit will process the XML file and store the scan data in its database, making it readily accessible for further exploitation or reconnaissance.</p>
       </div>
 
       <div className="content-section">
-        <h3>Step 4: Verify the Imported Data</h3>
+        <h3>Verify the Imported Data</h3>
         
-        <h4>List Hosts in the Database:</h4>
-        <p>To confirm that the scan data has been successfully imported, check the list of hosts in the database:</p>
-        <pre><code>msf> hosts -c address</code></pre>
-        <p>This command displays the IP addresses of all hosts in the database, including the victim IP <code>metasploitable2</code>.</p>
+        <h4>Listing Hosts in the Database:</h4>
+        <p>To confirm that the Nmap data has been successfully imported, list all hosts currently in the Metasploit database:</p>
+        <p>msf$ hosts -c address</p>
+        <p>This command outputs the IP addresses of all hosts stored in the database, including the victim IP <strong>metasploitable2</strong>, verifying successful import.</p>
       </div>
 
       <div className="content-section">
         <h3>Summary of Commands</h3>
         <p>For reference, here’s a summary of the commands used in this workflow:</p>
         <ul>
-          <li><strong>Run Nmap Scan:</strong> <code>nmap -Pn -sS -A -oX Subnet1 metasploitable2</code></li>
-          <li><strong>Open Metasploit and Connect to the Database:</strong> <code>msfconsole</code>, <code>msf> db_connect msf:msf@127.0.0.1/msf</code>, <code>msf> db_status</code></li>
-          <li><strong>Import Nmap Results into Metasploit:</strong> <code>msf> db_import Subnet1.xml</code></li>
-          <li><strong>Verify Hosts in Metasploit Database:</strong> <code>msf> hosts -c address</code></li>
+          <li><strong>Run Nmap Scan:</strong> nmap -Pn -sS -A -oX Subnet1 metasploitable2</li>
+          <li><strong>Open Metasploit and Connect to the Database:</strong> msfconsole, msf$ db_connect msf:msf@127.0.0.1/msf, msf$ db_status</li>
+          <li><strong>Import Nmap Results into Metasploit:</strong> msf$ db_import Subnet1.xml</li>
+          <li><strong>Verify Hosts in Metasploit Database:</strong> msf$ hosts -c address</li>
         </ul>
       </div>
 
       <div className="ctf-summary">
         <h3>Conclusion</h3>
         <p>
-          This workflow outlines the integration of Nmap scan results with Metasploit, enabling organized and efficient data handling 
-          for further analysis and exploitation. Integrating these tools facilitates a streamlined approach to reconnaissance.
+          Integrating Nmap scan results with Metasploit streamlines data management, providing an efficient approach to reconnaissance and exploitation.
+          This workflow enables quick access to scan results for actionable analysis and organized exploitation.
         </p>
       </div>
     </div>

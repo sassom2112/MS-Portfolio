@@ -1,4 +1,3 @@
-// src/pages/markdown/MySQLInjection.jsx
 import React from 'react';
 import './CommonStyles.css';
 
@@ -13,55 +12,55 @@ const MySQLInjection = () => {
       <div className="content-section">
         <h3>1. Initial Access to MySQL Database</h3>
         <p>
-          After gaining access to the target system, we access the MySQL console with root privileges, providing direct access 
-          to the database.
+          After gaining access to the target system, we access the MySQL console with root privileges, which provides direct access 
+          to the database and its stored data.
         </p>
         <h4>Login to MySQL</h4>
-        <pre><code>mysql -u root</code></pre>
+        <p>Command: mysql -u root</p>
         <p><strong>TTP:</strong> Exploitation of SQL Injection (T1190) or credential discovery can provide a foothold into the system.</p>
       </div>
 
       <div className="content-section">
         <h3>2. Enumerating Databases</h3>
-        <p>Once in the MySQL shell, we enumerate databases to locate sensitive information.</p>
+        <p>Once inside the MySQL shell, we enumerate all databases to locate where sensitive information might be stored.</p>
         <h4>Command</h4>
-        <pre><code>show databases;</code></pre>
+        <p>show databases;</p>
         <h4>Output</h4>
-        <pre><code>
-+--------------------+<br />
-|&nbsp;Database&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br />
-+--------------------+<br />
-|&nbsp;information_schema&nbsp;&nbsp;|<br />
-|&nbsp;mysql&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br />
-|&nbsp;pentesterlab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br />
-|&nbsp;performance_schema&nbsp;&nbsp;|<br />
-+--------------------+
-        </code></pre>
-        <p><strong>Finding:</strong> The <code>pentesterlab</code> database likely contains application data.</p>
+        <p>
+          +--------------------+<br />
+          | Database           |<br />
+          +--------------------+<br />
+          | information_schema |<br />
+          | mysql              |<br />
+          | pentesterlab       |<br />
+          | performance_schema |<br />
+          +--------------------+
+        </p>
+        <p><strong>Finding:</strong> The <code>pentesterlab</code> database likely contains application-related data.</p>
         <p><strong>TTP:</strong> Database Enumeration (T1083) reveals potential data stores with sensitive information.</p>
       </div>
 
       <div className="content-section">
         <h3>3. Switching to the Target Database</h3>
-        <p>Next, we switch to the <code>pentesterlab</code> database to continue the search for valuable data.</p>
+        <p>To focus the search for valuable data, we switch to the <code>pentesterlab</code> database.</p>
         <h4>Command</h4>
-        <pre><code>use pentesterlab;</code></pre>
+        <p>use pentesterlab;</p>
       </div>
 
       <div className="content-section">
         <h3>4. Enumerating Tables in the Database</h3>
-        <p>We list the tables in the <code>pentesterlab</code> database to identify where user data might be stored.</p>
+        <p>We list the tables in the <code>pentesterlab</code> database to identify where sensitive user data might be stored.</p>
         <h4>Command</h4>
-        <pre><code>show tables;</code></pre>
+        <p>show tables;</p>
         <h4>Output</h4>
-        <pre><code>
-+------------------------+<br />
-|&nbsp;Tables_in_pentesterlab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br />
-+------------------------+<br />
-|&nbsp;users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br />
-+------------------------+
-        </code></pre>
-        <p><strong>Finding:</strong> The <code>users</code> table is likely to contain usernames and passwords.</p>
+        <p>
+          +------------------------+<br />
+          | Tables_in_pentesterlab |<br />
+          +------------------------+<br />
+          | users                  |<br />
+          +------------------------+
+        </p>
+        <p><strong>Finding:</strong> The <code>users</code> table is a likely location for usernames and passwords.</p>
         <p><strong>TTP:</strong> Table Enumeration (T1083) helps identify critical tables holding high-value data.</p>
       </div>
 
@@ -69,16 +68,16 @@ const MySQLInjection = () => {
         <h3>5. Extracting User Credentials</h3>
         <p>We extract user data from the <code>users</code> table, which is expected to contain login credentials.</p>
         <h4>Command</h4>
-        <pre><code>select * from users;</code></pre>
+        <p>select * from users;</p>
         <h4>Output</h4>
-        <pre><code>
-+-------+--------------------------------------+<br />
-|&nbsp;login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br />
-+-------+--------------------------------------+<br />
-|&nbsp;admin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;0cefcff1-b087-4710-95ee-92218b028cdf&nbsp;&nbsp;|<br />
-+-------+--------------------------------------+
-        </code></pre>
-        <p><strong>Finding:</strong> The extracted admin credentials may need further cracking or analysis.</p>
+        <p>
+          +-------+--------------------------------------+<br />
+          | login | password                             |<br />
+          +-------+--------------------------------------+<br />
+          | admin | 0cefcff1-b087-4710-95ee-92218b028cdf |<br />
+          +-------+--------------------------------------+
+        </p>
+        <p><strong>Finding:</strong> The extracted admin credentials may require further cracking or analysis.</p>
         <p><strong>TTP:</strong> Credential Dumping (T1003) allows attackers to obtain login information from the database.</p>
       </div>
 

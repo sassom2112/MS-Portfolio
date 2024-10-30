@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../App.css'; // Your CSS file for styling
+import '../../src/'; // Your CSS file for styling
+import '../../src/'; // Your CSS file for styling
 
 function Header() {
   return (

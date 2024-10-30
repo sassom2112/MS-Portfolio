@@ -1,4 +1,3 @@
-// src/pages/markdown/LianYuWalkthrough.jsx
 import React from 'react';
 import './CommonStyles.css';
 
@@ -6,122 +5,85 @@ const LianYuWalkthrough = () => {
   return (
     <div className="lianyu-content">
       <div className="ctf-header">
-        <h1>TryHackMe Machine: Lian_Yu Walkthrough</h1>
+        <h1>TryHackMe: privilege escalation and exfiltration tactics</h1>
         <p>
-          In this walkthrough, we’ll break down the tactics, techniques, and procedures (TTPs) used to exploit the machine with IP <code>10.10.43.28</code>. 
-          The goal was to escalate privileges and obtain the root flag. Below is a step-by-step breakdown of how this was achieved, explaining the attack flow 
-          and highlighting key TTPs.
+          This project is based on the THM were I practiced privilege escalation and exfiltration tactics used to exploit the Lian_Yu machine. Starting from established SSH access, This Box highlights key techniques, tools, and TTPs that lead to obtaining root access and capturing the final flag.
         </p>
       </div>
 
       <div className="content-section">
-        <h3>1. Initial Enumeration and Clue Gathering</h3>
+        <h3>SSH Access with Discovered Credentials</h3>
+        <p>We start in the middle of the CTF challange where things start to heat up. We discovered low hanging fruit.</p>
         <ul>
-          <li><strong>Target IP:</strong> <code>10.10.43.28</code></li>
-          <li><strong>Clue Found:</strong> The string <code>RTy8yhBQdscX</code> was uncovered during the enumeration phase.</li>
+          <li><strong>Username:</strong> <code>slade</code></li>
+          <li><strong>Password:</strong> <code>M3tahuman</code></li>
         </ul>
         <p>
-          <strong>Decryption/Decoding:</strong> The string was decoded using <strong>base58</strong>, revealing the term <em>vigilante</em> and another clue, <em>!#th3h00d</em>.
-        </p>
-        <p>
-          <strong>TTP:</strong> This phase involved gathering intelligence (<strong>Initial Access - T1078</strong>) and using tools for decoding strings 
-          (<strong>Data from Information Repositories - T1213</strong>). By analyzing encoded data, the attacker gathered credentials or hints to continue the attack.
-        </p>
-      </div>
-
-      <div className="content-section">
-        <h3>2. Discovery of Password Clue (passwd.txt)</h3>
-        <p>
-          The next clue was found in <code>passwd.txt</code>, which contained the phrase:
-        </p>
-        <blockquote>
-          This is your visa to Land on Lian_Yu # Just for Fun ***
-        </blockquote>
-        <p>
-          The note referenced Oliver Queen, indicating further clues could be thematic.
-        </p>
-        <p>
-          <strong>TTP:</strong> Information was gathered from available files (<strong>Discovery - T1083</strong>). This led to the discovery of useful thematic hints pointing to future access methods.
-        </p>
-      </div>
-
-      <div className="content-section">
-        <h3>3. SSH Access with Credentials</h3>
-        <ul>
-          <li><strong>Discovered Password:</strong> Through enumeration, the password for the user <code>slade</code> was revealed as <code>M3tahuman</code>.</li>
-        </ul>
-        <p>
-          With this password, an <strong>SSH</strong> session was established to access the system:
+          With these credentials, SSH access was initiated to the target system:
         </p>
         <pre><code>{`ssh slade@10.10.43.28`}</code></pre>
         <p>
-          <strong>TTP:</strong> This step involved brute forcing or discovering weak credentials (<strong>Valid Accounts - T1078</strong>) to gain initial access via SSH (<strong>Remote Services - T1021</strong>).
+          <strong>TTP:</strong> <strong>Valid Accounts - T1078</strong> and <strong>Remote Services - T1021</strong> were leveraged to gain access via valid credentials.
         </p>
       </div>
 
       <div className="content-section">
-        <h3>4. Searching for Privilege Escalation Vectors</h3>
+        <h3>Privilege Escalation Reconnaissance</h3>
         <p>
-          After gaining a foothold, the attacker explored the file system and found a <strong>hidden file</strong> named <code>.Important</code> with the following message:
+          Once inside, a file system search led to the discovery of a hidden file <code>.Important</code>, which included the following hint:
         </p>
         <blockquote>
           What are you Looking for? Root Privileges? Try to find Secret_Mission.
         </blockquote>
         <p>
-          This indicated that the attacker should escalate privileges to root by finding the <strong>Secret_Mission</strong>.
+          This indicated a privilege escalation route potentially involving <code>pkexec</code>.
         </p>
         <p>
-          <strong>TTP:</strong> The attacker explored and enumerated the file system for additional clues (<strong>File and Directory Discovery - T1083</strong>), leveraging the system's misconfigurations to escalate privileges.
+          <strong>TTP:</strong> <strong>File and Directory Discovery - T1083</strong> was used to locate hidden files for potential escalation clues.
         </p>
       </div>
 
       <div className="content-section">
-        <h3>5. Privilege Escalation Using <code>pkexec</code></h3>
+        <h3>Privilege Escalation via <code>pkexec</code> Misconfiguration</h3>
         <p>
-          Running <code>sudo -l</code> revealed that the user <code>slade</code> had permission to run the command <code>pkexec</code> as root without entering the root password:
+          Running <code>sudo -l</code> revealed that <code>slade</code> could execute <code>pkexec</code> as root without a password:
         </p>
         <pre><code>{`User slade may run the following commands on LianYu:   (root) PASSWD: /usr/bin/pkexec`}</code></pre>
         <p>
-          <strong>Exploitation:</strong> The attacker used <code>pkexec</code> to spawn a root shell:
+          Using <code>pkexec</code> provided root shell access:
         </p>
         <pre><code>{`sudo /usr/bin/pkexec /bin/bash`}</code></pre>
         <p>
-          This escalated privileges to root, allowing full control over the system.
-        </p>
-        <p>
-          <strong>TTP:</strong> This was a classic <strong>Sudo and SUID Misconfiguration</strong> (<strong>Privilege Escalation - T1548.003</strong>) by exploiting the ability to run <code>pkexec</code> without a password, allowing the attacker to escalate privileges and gain root access.
+          <strong>TTP:</strong> Exploiting <strong>Sudo and SUID Misconfigurations - T1548.003</strong> allowed privilege escalation by executing <code>pkexec</code> without restrictions.
         </p>
       </div>
 
       <div className="content-section">
-        <h3>6. Capturing the Root Flag</h3>
+        <h3>4. Capturing the Root Flag</h3>
         <p>
-          With root privileges, the attacker navigated to the root directory and captured the root flag:
+          With root privileges, the attacker navigated to the root directory and obtained the root flag:
         </p>
         <pre><code>{`root@LianYu:~# cat root.txt Mission accomplished`}</code></pre>
         <p>
-          <strong>TTP:</strong> The final goal (<strong>Exfiltration - T1560</strong>) was completed by reading the root flag and completing the mission.
+          <strong>TTP:</strong> Exfiltration techniques (<strong>Exfiltration - T1560</strong>) were used to read and capture the root flag, completing the mission.
         </p>
       </div>
 
       <div className="content-section">
         <h3>Summary of Key TTPs</h3>
         <ul>
-          <li><strong>T1078:</strong> Valid Accounts – Exploiting weak or default credentials.</li>
-          <li><strong>T1083:</strong> File and Directory Discovery – Searching the system for critical files.</li>
-          <li><strong>T1213:</strong> Data from Information Repositories – Decoding base58 strings to extract useful data.</li>
-          <li><strong>T1021:</strong> Remote Services – Gaining access via SSH.</li>
-          <li><strong>T1548.003:</strong> Sudo and SUID Misconfiguration – Exploiting <code>pkexec</code> to escalate privileges.</li>
-          <li><strong>T1560:</strong> Exfiltration – Reading and capturing the root flag to complete the mission.</li>
+          <li><strong>T1078:</strong> Valid Accounts – Gaining access through valid SSH credentials.</li>
+          <li><strong>T1083:</strong> File and Directory Discovery – Locating key files for privilege escalation.</li>
+          <li><strong>T1021:</strong> Remote Services – Using SSH for remote access.</li>
+          <li><strong>T1548.003:</strong> Sudo and SUID Misconfiguration – Privilege escalation through <code>pkexec</code>.</li>
+          <li><strong>T1560:</strong> Exfiltration – Capturing and reading the root flag.</li>
         </ul>
       </div>
 
       <div className="ctf-summary">
         <h3>Final Thoughts</h3>
         <p>
-          This workflow outlines how various TTPs were used to compromise the TryHackMe machine, starting from clue discovery, SSH access, 
-          and ultimately leading to privilege escalation via a misconfigured <code>pkexec</code>. The attack utilized discovery techniques 
-          and privilege escalation methods commonly found in penetration testing engagements.
+          This walkthrough highlights key steps for privilege escalation and data exfiltration on the Lian_Yu machine. By focusing on real tools and misconfigurations, this approach demonstrates how misconfigured privileges can lead directly to full system access.
         </p>
       </div>
     </div>
