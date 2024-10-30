@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/MS-Portfolio/static/css/main.64fc0495.css",
+    "main.js": "/MS-Portfolio/static/js/main.b646d5ce.js",
+    "index.html": "/MS-Portfolio/index.html",
+    "main.64fc0495.css.map": "/MS-Portfolio/static/css/main.64fc0495.css.map",
+    "main.b646d5ce.js.map": "/MS-Portfolio/static/js/main.b646d5ce.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64fc0495.css",
+    "static/js/main.b646d5ce.js"
+  ]
+}
